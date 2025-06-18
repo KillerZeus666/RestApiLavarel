@@ -7,11 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Student;
 
-class studentController extends Controller
+class StudentController extends Controller
 {
-    // GET /students
     public function index(){
-        $students = Student::all(); // Obtener todos los estudiantes
+        $students = Student::all();
 
         if ($students->isEmpty()) {
             return response()->json(['message' => 'No students found'], 404);
@@ -20,13 +19,12 @@ class studentController extends Controller
         return response()->json($students, 200);
     }
 
-    // POST /students
     public function store(Request $request){
         Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:students,email',
             'phone' => 'nullable|string|max:15',
-            'language' => 'nullable|string|max:50', // Corrección: no debería ser 'date' si es lenguaje
+            'language' => 'nullable|string|max:50',
         ])->validate();
 
         $student = Student::create($request->all());
