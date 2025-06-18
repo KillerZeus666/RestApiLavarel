@@ -3,9 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/students', function () {
-    return 'Obteniendo lista de estudiantes';
-});
+use App\Http\Controllers\Api\studentController;
+
+Route::get ('/students', [studentController::class, 'index']);
 
 Route::get('/students/{id}', function($id){
     return "Obteniendo estudiante con ID: " . $id;       
